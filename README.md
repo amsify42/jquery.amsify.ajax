@@ -115,13 +115,61 @@ $('.add-element').amsifyItemsList({
 ```js
   $('form').amsifyLoadData();
 ```
-
+This will make the from submit load data in defined selector section.
+```html
+	<form data-action="http://site.com/search">
+		<input type="text" name="search"/>
+		<input type="submit"/>
+	</form>
+	<div class="amsify-ajax-load-container">
+	</div>
+```
+Whenever form is submitted data ajax request will send to the action url set in **data-action** attribute and data will be loaded to the container. If you wish you can put the section body loader outside of container.
+```html
+	<div class="section-body-loader fill-background"></div>
+	<div class="amsify-ajax-load-container">
+	</div>
+```
 ## Suggestions
 ```js
   $('.amsify-ajax-suggestion').amsifySuggestData();
 ```
-
+This will get suggestions through ajax call on keyup of given selector. Below is the example
+```html
+	<form data-action="http://site.com/search">
+		<input type="text" name="search" class="amsify-ajax-suggestion"/>
+		<input type="submit"/>
+	</form>
+```
+Response can be either array of suggestions or html. If you can wish to send suggestions array, json response should
+```js
+	{
+		status : 'success',
+		suggestions : ['word', 'keyword', 'key']
+	}
+```
+If you want you can directly send html as ul li items as response but one more value with name **html** needs to be passed as true
+```js
+	{
+		status : 'success',
+		suggestions : '<li>word</li><li>keyword</li><li>key</li>',
+		html : true
+	}
+```
 ## onChange
 ```js
   $('.amsify-ajax-change').amsifyOnChange();
 ```
+It will simply create on change event to the selector and call ajax and load content to other selector. Below is the example
+```html
+	<select amsify-ajax-action="http://site.com/change" amsify-ajax-change="#subcategory" class="amsify-ajax-change">
+		<option value="">Select</option>
+		<option value="1">First</option>
+		<option value="2">Second</option>
+		<option value="3">Third</option>
+	</select>
+				
+	<select class="form-control" id="subcategory">
+	</select>
+```
+As you can see on change **amsify-ajax-action** attribute value url will be called through ajax and data will be loaded to the selector which is set in **amsify-ajax-change** attribute.
