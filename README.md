@@ -51,16 +51,41 @@ You can define callback function after toggle event is done. You can do it by tw
 
 2. By defining it in initialization itself
 ```js
-  $('.amsify-ajax-toggle').amsifyToggle({
-			afterToggle : function() {
-				alert();
-			}
-		});
+	$('.amsify-ajax-toggle').amsifyToggle({
+		afterToggle : function() {
+			alert();
+		}
+	});
 ```
 ## Multiple Items
 ```js
   $('.amsify-ajax-item').amsifyDynamicItems();
 ```
+It will make the element create copy of it multiple items. Let's say you have one element having one input field inside it that needs to be copied multiple items.
+```html
+	<div class="amsify-ajax-item">
+		<input type="text"/>
+		<a href="#" class="amsify-ajax-item-add">Add</a>
+	</div>
+```
+This will make this element copy itself multiple times. As you can see add event is associated with class **.amsify-ajax-item-add**, it will make the element copy and append next to it. The appended element will have delete event with class **.amsify-ajax-item-remove**. If you want you can change these add/remove event selectors in initialization.</br>
+These are the options you can pass to initialization.</br>
+```js
+$('.amsify-ajax-item').amsifyDynamicItems({
+	itemAddClass   	: '.item-class2-add',
+	itemRemoveClass : '.item-class2-remove',
+	type 		: 'bootstrap',
+	afterAdd 	: function() {
+		alert('config: After Add');
+	},
+	afterDelete	: function() {
+		alert('config: After Delete');
+	},
+});
+```
+**itemAddClass** and **itemRemoveClass** are add/remove event selectors.<br/>
+**type** can be **bootstrap** if you are using bootstrap css framework.<br/>
+**afterAdd** and **afterDelete** are the callback functions you can pass.<br/>
 
 ## Items List
 ```js
