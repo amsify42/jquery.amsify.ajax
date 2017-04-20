@@ -20,7 +20,43 @@ This plugin has some functions which are useful to when we have to append text a
 ```js
   $('.amsify-ajax-toggle').amsifyToggle();
 ```
+This will make the element toggle the class and content based on boolean value it has. Let's you have two classes  **.red** and **.green** and the content you want to toggle is **YES** and **NO**. 
+```html
+  <a class="red amsify-ajax-toggle"
+     data-id="786"
+     data-val="1" 
+     data-method="http://site.com/call-ajax"
+     data-class="green:red"
+     data-html="YES:NO">YES</a> 
+```
+On click, the content **data-class** and **data-html** attributes having will be toggled in this element. As you can see both these attributes having value separated by colon to be toggled. On every click it will call ajax method to the url defined in **data-method** attribute with form data placed in **data-id** and **data-val**.
+<br/>
+You can define callback function after toggle event is done. You can do it by two ways.
+1. By putting callback function in element attribute
+```html
+  <a class="red amsify-ajax-toggle"
+     data-id="786"
+     data-val="1" 
+     data-method="http://site.com/call-ajax"
+     data-class="green:red"
+     data-html="YES:NO"
+     after-toggle="callback()"
+      >YES</a> 
+```
+```js
+  function callback() {
+    alert();
+  }
+```
 
+2. By defining it in initialization itself
+```js
+  $('.amsify-ajax-toggle').amsifyToggle({
+			afterToggle : function() {
+				alert();
+			}
+		});
+```
 ## Multiple Items
 ```js
   $('.amsify-ajax-item').amsifyDynamicItems();
