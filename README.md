@@ -91,6 +91,25 @@ $('.amsify-ajax-item').amsifyDynamicItems({
 ```js
   $('.amsify-add-element').amsifyItemsList();
 ```
+It will add the item to the list of items, when pressed enter on input.</br>
+Let's say you have div element which is having multiple items and the last item containing inputs, Whenever you enter data in those inputs and press enter, it will add the item to the list with inputs provided.
+```html
+	<div class="amsify-ajax-list">
+		<div class="amsify-ajax-list-item"><span>1</span><span>Amsify</span></div>
+		<div class="amsify-ajax-list-last">
+			<input type="text" name="id" class="add-element"/>
+			<input type="text" name="name" class="add-element"/>
+		</div>
+	</div>	
+```
+Note these things, list container having class **amsify-ajax-list** and item having class **amsify-ajax-list-item** and last item having class **amsify-ajax-list-last**. Last item inputs submit will make the item add next to all items before last item.<br/>
+But item needs to be set in option to define which value needs to be print on which position.
+```js
+$('.add-element').amsifyItemsList({
+	listItemHTML : '<div class="amsify-ajax-list-item"><span>{id}</span><span>{name}</span></div>'
+});
+```
+**listItemHTML** define what html needs to be append after input submit. Note that this html having two variables within curly brace. These names print the values which comes from inputs having these same attribute names.
 
 ## Form Search
 ```js
