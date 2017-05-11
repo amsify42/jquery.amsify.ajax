@@ -705,7 +705,7 @@
      */
     AmsifyAjax.setItemsList  = function(config) {
       var type              = defaultType;
-      var listClass         = defaultListClass;
+      var listClassSel      = defaultListClass;
       var listItemClass     = defaultListItemClass;
       var listItemField     = defaultListItemField;
       var listItemHTML      = defaultListItemHTML;
@@ -717,7 +717,7 @@
           type = config.type;
         }
         if(config.listClass !== undefined) {
-          listClass = config.listClass;
+          listClassSel = config.listClass;
         }
         if(config.listItemClass !== undefined) {
           listItemClass = config.listItemClass;
@@ -739,51 +739,53 @@
         }
       }
 
-      $(listItemField).keyup(function(e){
-        if(e.which == 13) {
-          var fields  = $(this).closest(listClass).find(listItemField);
-          var values  = getValuesFromFields(fields);
-          var HTML    = itemHTMLValue(listItemHTML, values, listItemClass);
-          var htmlAfter;
-          if($(this).closest('.amsify-ajax-list-last').length) {
-            htmlAfter = $(HTML).insertBefore($(this).closest('.amsify-ajax-list-last'));
-          } else {
-            htmlAfter = $(HTML).appendTo($(this).closest(listClass));
-          }            
-          $(this).closest(listClass).find(listItemField).not("input[type='hidden']").val('');
+      $(listClassSel).each(function(index, listClass){ 
+        $(listClass).find(listItemField).keyup(function(e){
+          if(e.which == 13) {
+            var fields  = $(this).closest(listClass).find(listItemField);
+            var values  = getValuesFromFields(fields);
+            var HTML    = itemHTMLValue(listItemHTML, values, listItemClass);
+            var htmlAfter;
+            if($(this).closest('.amsify-ajax-list-last').length) {
+              htmlAfter = $(HTML).insertBefore($(this).closest('.amsify-ajax-list-last'));
+            } else {
+              htmlAfter = $(HTML).appendTo($(this).closest(listClass));
+            }            
+            $(this).closest(listClass).find(listItemField).not("input[type='hidden']").val('');
 
-          config['afterSuccess'] = function(data){
-            $(htmlAfter).attr('item-id', data['item_id']);
-            if(config.afterAdd && typeof config.afterAdd == "function") {
-              config.afterAdd(htmlAfter, data);
+            config['afterSuccess'] = function(data){
+              $(htmlAfter).attr('item-id', data['item_id']);
+              if(config.afterAdd && typeof config.afterAdd == "function") {
+                config.afterAdd(htmlAfter, data);
+              }
+            };
+            if(ajaxAddAction){
+              AmsifyHelper.callAjax(ajaxAddAction, values, config);
             }
-          };
-          if(ajaxAddAction){
-            AmsifyHelper.callAjax(ajaxAddAction, values, config);
           }
-        }
-      });
+        });
 
-      $(document).on('click', listItemRemove, function(){
-          var id      = $(this).closest(listItemClass).attr('item-id');
-          var params  = {id: id};
-          if(config.afterDelete && typeof config.afterDelete == "function") {
-            config.afterDelete($item);
-          }
-          $(this).closest(listItemClass).remove();
-          if(ajaxRemoveAction){
-            AmsifyHelper.callAjax(ajaxRemoveAction, params, config);
-          }
-      });
+        $(document).on('click', listItemRemove, function(e){
+            e.stopImmediatePropagation();
+            var id      = $(this).closest(listItemClass).attr('item-id');
+            var params  = {id: id};
+            if(config.afterDelete && typeof config.afterDelete == "function") {
+              config.afterDelete($item);
+            }
+            $(this).closest(listItemClass).remove();
+            if(ajaxRemoveAction){
+              AmsifyHelper.callAjax(ajaxRemoveAction, params, config);
+            }
+        });
 
-      if($(listItemField).closest(listClass).is('[amsify-list-draggable]')) {
+        if($(listItemField).closest(listClass).is('[amsify-list-draggable]')) {
             var selector    = $(listItemField).closest(listClass);
             var ajaxMethod  = $(listItemField).closest(listClass).attr('amsify-list-draggable');
             var fields      = $(listItemField).closest(listClass).find(listItemField);
-            var values      = getValuesFromFields(fields);
+            var values      = getValuesFromFields(fields, true);
             AmsifyHelper.setDraggableSort(selector, ajaxMethod, 'item-id', values);
         };
-
+      });  
     };
 
     /**
@@ -805,18 +807,24 @@
     /**
      * get values from item inputs
      * @param  {object} fields
+     * @param  {boolean} skipValidate
      * @return {object}
      */
-    function getValuesFromFields(fields) {
-      var values = {};
+    function getValuesFromFields(fields, skipValidate) {
+      var values  = {};
+      var sendVal = true;
       $(fields).each(function(index, field){
-          if($(field).attr('name')) {
+          if($(field).attr('name') && $(field).val() != '') {
             values[$(field).attr('name')] = $(field).val();
+          } else {
+            if(skipValidate === undefined) {
+              sendVal = false;
+            }
           }
       });
-      return values;
+      if(sendVal) return values; else return false;
     };
-
+    
 /**
  * 
  ************ All suggestions functionalities section ************
