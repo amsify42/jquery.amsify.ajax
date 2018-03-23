@@ -12,10 +12,19 @@
         }, options);
 
         /**
-         * initialization begins from here
+         * Global variable for this object context
+         */
+        var _self;
+        /**
+         * Initialization begins from here
          * @type {Object}
          */
         var AmsifyToggle = function() {
+            /**
+             * Assigning this context to _self
+             * @type {object}
+             */
+            _self            = this;
             this.toggleClass = {
                 bootstrap   : ['btn-success', 'btn-danger'],
                 materialize : ['btn-success', 'btn-danger'],
@@ -40,16 +49,15 @@
              * @param  {object} settings
              */
             _init               : function(selector, settings) {
-                this.setTableColumns(selector);
+                this.setToggleEvent(selector);
             },
 
             setToggleEvent      : function(selector) {
-                var _self               = this;
                 var callbackFunction    = function(){
                   var $this             = $(this);
-                  var ID                = $(this).attr('data-id');
-                  var toggleValue       = $(this).attr('data-val');
-                  var targetMethod      = $(this).attr('data-method');
+                  var ID                = $(this).data('id');
+                  var toggleValue       = $(this).data('val');
+                  var targetMethod      = $(this).data('method');
                   var toggleClass       = _self.getToggleClass(this);
                   var toggleHTML        = _self.getToggleHTML(this);
 
@@ -65,16 +73,15 @@
                       AmsifyHelper.callback(settings, _self.callback.name, $this, _self.callback.attr);
                   };
                   AmsifyHelper.callAjax(targetMethod, params, ajaxConfig, 'POST', settings.flash);
-
                 };
-                AmsifyHelper.setEvent(true, 'click', selector, callbackFunction);
+                $(selector).click(callbackFunction);
             },
 
             getToggleClass      : function(selector) {
                 if(settings.toggleClass.length > 1) {
                     return settings.toggleClass;
-                } else if($(selector).attr('data-class') !== undefined) {
-                    return $(selector).attr('data-class').split(':');
+                } else if($(selector).data('class') !== undefined) {
+                    return $(selector).data('class').split(':');
                 } else {
                     return this.toggleClass[settings.type];
                 }
@@ -83,8 +90,8 @@
             getToggleHTML       : function(selector) {
                 if(settings.toggleHTML.length > 1) {
                     return settings.toggleHTML;
-                } else if($(selector).attr('data-html') !== undefined) {
-                    return $(selector).attr('data-html').split(':');
+                } else if($(selector).data('html') !== undefined) {
+                    return $(selector).data('html').split(':');
                 } else {
                     return this.toggleHTML[settings.type];
                 }

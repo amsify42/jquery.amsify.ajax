@@ -13,12 +13,21 @@
         }, options);
 
         /**
-         * initialization begins from here
+         * Global variable for this object context
+         */
+        var _self;
+        /**
+         * Initialization begins from here
          * @type {Object}
          */
         var AmsifyOnChange = function() {
+            /**
+             * Assigning this context to _self
+             * @type {object}
+             */
+            _self               = this;
             this.loaderPath     = 'images/loader-small.gif';
-            this.loaderClass    = 'on-change-loader';
+            this.loaderClass    = '.on-change-loader';
             this.callbackBefore = {
                 name : 'beforeChange',
                 attr : 'before-change'
@@ -41,7 +50,6 @@
             },
 
             setOnChange         : function(selector) {
-              var _self = this;
               $(selector).on('change', function(){
                 AmsifyHelper.callback(settings, _self.callbackBefore.name, this, _self.callbackBefore.attr);
                 if($.trim($(this).val()) != '') {
@@ -51,7 +59,7 @@
             },
 
             callAjaxForChange   : function(selector) {
-              var params      = { value : $(field).val()};
+              var params      = { value : $(selector).val()};
               var ajaxConfig  = {};
               var loaderPath  = this.loaderPath;
               var params      = $.extend({}, params, settings.extraParams);
@@ -60,16 +68,20 @@
               }
 
               ajaxConfig['beforeSend'] = function(){
-                  $(targetField).before('<img class="'+this.loaderClass+'" src="'+AmsifyHelper.getActionURL(loaderPath)+'"/>')
+                  if($(settings.targetField).prev(_self.loaderClass).length) {
+                    $(_self.loaderClass).show();
+                  } else {
+                    $(settings.targetField).before('<img class="'+_self.loaderClass.substring(1)+'" src="'+AmsifyHelper.getActionURL(loaderPath)+'"/>')
+                  }
               };
 
               ajaxConfig['afterSuccess'] = function(data){
-                  $(targetField).html(data['html']);
+                  $(settings.targetField).html(data['html']);
               };
 
               ajaxConfig['complete'] = function(){
-                  $('.'+this.loaderClass).hide();
-                  AmsifyHelper.callback(settings, this.callbackAfter.name, field, this.callbackAfter.attr);
+                  $(_self.loaderClass).hide();
+                  AmsifyHelper.callback(settings, _self.callbackAfter.name, field, _self.callbackAfter.attr);
               };
 
               AmsifyHelper.callAjax(settings.action, params, ajaxConfig);
