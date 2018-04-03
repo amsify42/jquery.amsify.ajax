@@ -27,6 +27,6 @@ foreach($selections as $id => $name) {
 header('Content-type: application/json');
 echo json_encode(array(
 						'status' 	=> true,
-						'message' 	=> 'Toggle Successful',
+						'message' 	=> 'Toggle Successfull',
 						'html' 		=> $options
 					));
