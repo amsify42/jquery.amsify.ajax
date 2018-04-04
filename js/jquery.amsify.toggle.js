@@ -12,19 +12,10 @@
         }, options);
 
         /**
-         * Global variable for this object context
-         */
-        var _self;
-        /**
          * Initialization begins from here
          * @type {Object}
          */
         var AmsifyToggle = function() {
-            /**
-             * Assigning this context to _self
-             * @type {object}
-             */
-            _self            = this;
             this.toggleClass = {
                 bootstrap   : ['btn-success', 'btn-danger'],
                 materialize : ['btn-success', 'btn-danger'],
@@ -53,6 +44,7 @@
             },
 
             setToggleEvent      : function(selector) {
+                var _self               = this;
                 var callbackFunction    = function(){
                   var $this             = $(this);
                   var ID                = $(this).data('id');

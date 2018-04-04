@@ -16,19 +16,10 @@
         }, options);
 
         /**
-         * Global variable for this object context
-         */
-        var _self;
-        /**
          * Initialization begins from here
          * @type {Object}
          */
         var AmsifyListItems = function() {
-            /**
-             * Assigning this context to _self
-             * @type {object}
-             */
-            _self                 = this;
             this.list             = null;
             this.formInputs       = null;
             this.bodyLoader       = null;
@@ -52,6 +43,7 @@
             },
 
             setEvents : function() {
+              var _self = this;
               $(this.list).find(this.removeItemClass+':last').hide();
               $(this.addItemClass).click(function(){
                   _self.addItem();
@@ -65,6 +57,7 @@
             },
 
             addItem : function() {
+              var _self   = this;
               $lastItem   = $(this.list).children().last();
               $newItem    = $lastItem.clone().insertBefore($lastItem);
               $newItem.hide();
@@ -93,6 +86,7 @@
             },
 
             setEditEvent : function($listItem) {
+              var _self = this;
               $listItem.find(':input').on('keyup', function(e){
                 var keyCode = (e.keyCode ? e.keyCode : e.which);
                 if(keyCode == 13) {
@@ -112,6 +106,7 @@
             },
 
             setRemoveEvent : function() {
+              var _self = this;
               $(this.removeItemClass).click(function(e){
                   e.stopImmediatePropagation();
                   if(confirm('Are you sure, you want to remove?')) {

@@ -13,19 +13,10 @@
         }, options);
 
         /**
-         * Global variable for this object context
-         */
-        var _self;
-        /**
          * Initialization begins from here
          * @type {Object}
          */
         var AmsifyOnChange = function() {
-            /**
-             * Assigning this context to _self
-             * @type {object}
-             */
-            _self               = this;
             this.loaderPath     = 'images/loader-small.gif';
             this.loaderClass    = '.on-change-loader';
             this.callbackBefore = {
@@ -50,6 +41,7 @@
             },
 
             setOnChange         : function(selector) {
+              var _self = this;
               $(selector).on('change', function(){
                 AmsifyHelper.callback(settings, _self.callbackBefore.name, this, _self.callbackBefore.attr);
                 if($.trim($(this).val()) != '') {
@@ -59,6 +51,7 @@
             },
 
             callAjaxForChange   : function(selector) {
+              var _self       = this;
               var params      = { value : $(selector).val()};
               var ajaxConfig  = {};
               var loaderPath  = this.loaderPath;
