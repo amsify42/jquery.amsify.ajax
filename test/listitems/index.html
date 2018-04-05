@@ -14,9 +14,9 @@
 
 <!-- Amsify Plugin -->
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-<link media="all" type="text/css" rel="stylesheet" href="../../helper/css/amsify.css">
-<script type="text/javascript" src="../../helper/js/jquery.amsifyhelper.js"></script>
-<script type="text/javascript" src="../js/jquery.amsify.listitems.js"></script>
+<link media="all" type="text/css" rel="stylesheet" href="../../../helper/css/amsify.css">
+<script type="text/javascript" src="../../../helper/js/jquery.amsifyhelper.js"></script>
+<script type="text/javascript" src="../../js/jquery.amsify.listitems.js"></script>
 </head>
 <body>
 <header>
@@ -61,7 +61,14 @@
 		<pre>
 			<code>
 				AmsifyHelper.setBaseURL('jquery-plugins');
-				$('#list-items').amsifyListItems();
+				$('#list-items').amsifyListItems({
+					action : {
+						add: 'ajax/test/item.php',
+						edit: 'ajax/test/item.php',
+						delete: 'ajax/test/item.php',
+						sort: 'ajax/test/item.php'
+					},
+				});
 			</code>
 		</pre>
 	</div>

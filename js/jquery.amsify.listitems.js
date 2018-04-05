@@ -35,7 +35,7 @@
              */
             _init : function(list, settings) {
               this.list       = list;
-              this.formInputs = $(list).find(':input');
+              this.formInputs = $(list).children().last().find(':input');
               AmsifyHelper.fixedCloneMethod();
               this.setEvents();
               this.prependLoader();
@@ -44,8 +44,9 @@
 
             setEvents : function() {
               var _self = this;
+              $(this.list).find(this.addItemClass).not(':last').hide();
               $(this.list).find(this.removeItemClass+':last').hide();
-              $(this.addItemClass).click(function(){
+              $(this.list).find(this.addItemClass+':last').click(function(){
                   _self.addItem();
               });
               $(this.formInputs).on('keyup', function(e){
@@ -54,6 +55,12 @@
                   _self.addItem();
                 }
               });
+              $(this.list).children().each(function(){
+                  if($(this).attr(settings.itemAttr)) {
+                    _self.setEditEvent($(this));
+                  }
+              });
+              this.setRemoveEvent();
             },
 
             addItem : function() {
@@ -73,6 +80,7 @@
                   $(_self.formInputs).first().focus();
                   _self.setRemoveEvent();
                   _self.setEditEvent($('['+settings.itemAttr+'="'+data.id+'"]'));
+                  _self.setSort();
                 },
                 afterError : function() {
                   $newItem.remove();
@@ -107,7 +115,7 @@
 
             setRemoveEvent : function() {
               var _self = this;
-              $(this.removeItemClass).click(function(e){
+              $(this.list).find(this.removeItemClass).click(function(e){
                   e.stopImmediatePropagation();
                   if(confirm('Are you sure, you want to remove?')) {
                     $listItem       = $(this).closest('['+settings.itemAttr+']');
@@ -142,11 +150,14 @@
 
             prependLoader : function() {
                 $(this.list).css('position', 'relative');
-                this.bodyLoader = $('<div class="section-body-loader fill-background"></div>').prependTo(this.list);
+                var tag = $(this.list).children().first().prop('tagName');
+                    tag = (tag)? tag : 'DIV';
+                this.bodyLoader = $('<'+tag+' class="section-body-loader fill-background"></'+tag+'>').prependTo(this.list);
             },
 
             setSort : function() {
               if(settings.action.sort) {
+                $(this.list).children().removeClass('unsort');
                 $(this.list).children().last().addClass('unsort');
                 AmsifyHelper.setDraggableSort(this.list, settings.action.sort, settings.itemAttr, {}, {type: settings.type, flash: settings.flash});
               }

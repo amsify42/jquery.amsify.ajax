@@ -48,15 +48,17 @@
                 var callbackFunction    = function(){
                   var $this             = $(this);
                   var ID                = $(this).data('id');
-                  var toggleValue       = $(this).data('val');
+                  var toggleValue       = $(this).attr('data-val');
                   var targetMethod      = $(this).data('method');
                   var toggleClass       = _self.getToggleClass(this);
                   var toggleHTML        = _self.getToggleHTML(this);
 
                   if(toggleValue == 0) {
-                     $(this).removeClass(toggleClass[1]).addClass(toggleClass[0]).data('val', 1).empty().html(toggleHTML[0]);  
+                    toggleValue = 1;
+                    $(this).removeClass(toggleClass[1]).addClass(toggleClass[0]).attr('data-val', 1).empty().html(toggleHTML[0]);  
                   } else {
-                     $(this).removeClass(toggleClass[0]).addClass(toggleClass[1]).data('val', 0).empty().html(toggleHTML[1]);              
+                    toggleValue = 0;
+                    $(this).removeClass(toggleClass[0]).addClass(toggleClass[1]).attr('data-val', 0).empty().html(toggleHTML[1]);              
                   }
 
                   var ajaxConfig          = {};
