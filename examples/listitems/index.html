@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jquery List Items - Amsify42</title>
+
+<!-- CDN links -->
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+
+<!-- Amsify Plugin -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<link media="all" type="text/css" rel="stylesheet" href="../../../helper/css/amsify.css">
+<script type="text/javascript" src="../../../helper/js/jquery.amsify.helper.js"></script>
+<script type="text/javascript" src="../../js/jquery.amsify.listitems.js"></script>
+</head>
+<body>
+<header>
+	<div class="container">
+		<h1 class="text-center">Jquery Ajax - List Items</h1>
+	</div>
+</header>
+<div class="container" style="min-height:360px;">
+	<div class="col-md-3"></div>
+	<div class="col-md-6 text-center">
+		<div class="row" id="list-items">
+			<div class="form-group row">
+				<div class="col-sm-1">
+				</div>
+				<div class="col-sm-3">
+					<select name="color" class="form-control">
+						<option value="">Select</option>
+						<option value="Red">Red</option>
+						<option value="Orange">Orange</option>
+						<option value="Blue">Blue</option>
+						<option value="Green">Green</option>
+					</select>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" name="name" placeholder="Name" class="form-control"/>
+				</div>
+				<div class="col-sm-3">
+					<input type="text" name="email" placeholder="Email" class="form-control"/>
+				</div>
+				<div class="col-sm-2">
+					<a href="#" class="btn btn-default add-item"><span class="fa fa-plus"></span></a>
+					<a href="#" class="btn btn-default remove-item"><span class="fa fa-times"></span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3"></div>
+</div>
+<footer>
+	<div class="container">
+		<h1 class="text-left">Usage</h1>
+		<pre>
+			<code>
+				AmsifyHelper.setBaseURL('jquery-plugins');
+				$('#list-items').amsifyListItems({
+					action : {
+						add: 'ajax/examples/item.php',
+						edit: 'ajax/examples/item.php',
+						delete: 'ajax/examples/item.php',
+						sort: 'ajax/examples/item.php'
+					},
+				});
+			</code>
+		</pre>
+	</div>
+</footer>
+<!-- -->
+<script type="text/javascript">
+	AmsifyHelper.setBaseURL('jquery-plugins');
+	$('#list-items').amsifyListItems({
+		action : {
+			add: 'ajax/examples/item.php',
+			edit: 'ajax/examples/item.php',
+			delete: 'ajax/examples/item.php',
+			sort: 'ajax/examples/item.php'
+		},
+	});
+</script>
+</body>
+</html>
