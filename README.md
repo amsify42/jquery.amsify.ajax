@@ -7,6 +7,10 @@ This folder having three different plugin files
 2. [OnChange](#onchange)
 3. [List Items](#list-items)
 
+## Requires
+1. [AmsifyHelper](https://github.com/amsify42/jquery.amsify.helper)
+2. Jquery-ui(If draggable sort option is being used)
+
 ## Toggle
 This is for toggling content and class of elements along with calling ajax.
 <br/>
@@ -112,4 +116,11 @@ Initializing list items will prepend the copy of item on click **.add-item** alo
 			<a href="#" class="add-item">Add</a>
 		</div>
 	</div>
+```
+
+You can also set sort action if you want elements ids to be passed after draggable sort.
+```js
+	$('#list').amsifyListItems({
+		sort: 'http://site.com/sort.php',
+	});
 ```
