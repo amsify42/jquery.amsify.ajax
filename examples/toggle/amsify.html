@@ -4,15 +4,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jquery Ajax - Amsify42</title>
+<title>Jquery Select - Amsify42</title>
 
 <!-- CDN links -->
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 <!-- Amsify Plugin -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <link media="all" type="text/css" rel="stylesheet" href="../../../helper/css/amsify.css">
 <script type="text/javascript" src="../../../helper/js/jquery.amsify.helper.js"></script>
 <script type="text/javascript" src="../../js/jquery.amsify.toggle.js"></script>
@@ -20,23 +18,37 @@
 <body>
 <header>
 	<div class="container">
-		<h1 class="text-center">Jquery Ajax - Toggle</h1>
+		<h1 class="text-center">Jquery Selection</h1>
 	</div>
 </header>
+<style type="text/css">
+	.btn-green,
+	.btn-red {
+		padding: 5px 15px;
+	    color: white;
+	    font-weight: bold;
+	    cursor: pointer;
+	    text-decoration: none !important;
+	    font-size: 24px;
+	}
+	.btn-green:hover,
+	.btn-red:hover {
+		color: white;
+	}
+	.btn-green {
+		background: green;
+	}
+	.btn-red {
+		background: red;
+	}
+</style>
 <div class="container" style="min-height:360px;">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 text-center">
-		<h1>Toggle</h1>
-		<a href="#" class="active btn" data-id="1" data-val="1"></a>
-
-		<h1>Toggle with otions in attribute</h1>
-		<a 	href="#" class="block btn"
-			data-class="btn-success:btn-danger"
-			data-html="<span class='fa fa-unlock'></span>:<span class='fa fa-lock'></span>"
-			data-id="1"
-			data-val="1"
-			data-ajax="ajax/examples/action.php">
-		</a>
+		<div class="form-group">
+			<a class="active" data-id="1" data-val="1"></a>
+		</div>
+		<br><br>
 	</div>
 	<div class="col-md-3"></div>
 </div>
@@ -47,14 +59,14 @@
 			<code>
 				AmsifyHelper.setBaseURL('jquery-plugins');
 				$('.active').amsifyToggle({
-					toggleClass: ['btn-success', 'btn-danger'],
-					toggleHTML: ['<span class="fa fa-check"></span>', '<span class="fa fa-times"></span>'],
+					type : 'amsify',
+					toggleClass: ['btn-green', 'btn-red'],
+					toggleHTML: ['&#10004;', '&#10006;'],
 					flash: true,
 					afterToggle: function() {
 						console.info('After toggle');
 					}
 				});
-				$('.block').amsifyToggle();
 			</code>
 		</pre>
 	</div>
@@ -63,15 +75,15 @@
 <script type="text/javascript">
 	AmsifyHelper.setBaseURL('jquery-plugins');
 	$('.active').amsifyToggle({
-		toggleClass: ['btn-success', 'btn-danger'],
-		toggleHTML: ['<span class="fa fa-check"></span>', '<span class="fa fa-times"></span>'],
+		type : 'amsify',
+		toggleClass: ['btn-green', 'btn-red'],
+		toggleHTML: ['&#10004;', '&#10006;'],
 		action: 'ajax/examples/action.php',
 		flash: true,
 		afterToggle: function() {
 			console.info('After toggle');
 		}
 	});
-	$('.block').amsifyToggle();
 </script>
 </body>
 </html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jquery Toggle - Amsify42</title>
+
+<!-- CDN links -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"/>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+<!-- Amsify Plugin -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link media="all" type="text/css" rel="stylesheet" href="../../../helper/css/amsify.css">
+<script type="text/javascript" src="../../../helper/js/jquery.amsify.helper.js"></script>
+<script type="text/javascript" src="../../js/jquery.amsify.toggle.js"></script>
+</head>
+
+
+<body>
+
+
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h4 class="header center orange-text">Toggle</h4>
+      <div class="row center">
+        <a href="#" class="active" data-id="1" data-val="1"></a>
+      </div>
+      <br/>
+      <h4 class="header center orange-text">Toggle with otions in attribute</h4>
+      <div class="row center">
+      	<a 	href="#" class="block"
+			data-class="btn green:btn red"
+			data-html="<i class='material-icons'>lock_open</i>:<i class='material-icons'>lock_outline</i>"
+			data-id="1"
+			data-val="1"
+			data-ajax="ajax/examples/action.php">
+		</a>
+      </div>
+      <br><br>
+    </div>
+  </div>
+
+
+  
+
+<footer>
+	<div class="container">
+		<h4 class="text-left">Usage</h4>
+		<pre>
+			<code>
+				AmsifyHelper.setBaseURL('jquery-plugins');
+				$('.active').amsifyToggle({
+					type : 'materialize',
+					toggleClass: ['btn green', 'btn red'],
+					toggleHTML: ['<i class="material-icons">check</i>', '<i class="material-icons">close</i>'],
+					flash: true,
+					afterToggle: function() {
+						console.info('After toggle');
+					}
+				});
+				$('.block').amsifyToggle({
+					type: 'materialize'
+				});			
+			</code>
+		</pre>
+	</div>
+</footer>
+<!-- -->
+<script type="text/javascript">
+	AmsifyHelper.setBaseURL('jquery-plugins');
+	$('.active').amsifyToggle({
+		type : 'materialize',
+		toggleClass: ['btn green', 'btn red'],
+		toggleHTML: ['<i class="material-icons">check</i>', '<i class="material-icons">close</i>'],
+		action: 'ajax/examples/action.php',
+		flash: true,
+		afterToggle: function() {
+			console.info('After toggle');
+		}
+	});
+	$('.block').amsifyToggle({
+		type: 'materialize'
+	});
+</script>
+</body>
+</html>
