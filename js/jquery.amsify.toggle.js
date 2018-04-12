@@ -13,6 +13,7 @@
             type          : 'bootstrap',
             toggleClass   : [],
             toggleHTML    : [],
+            action        : 'toggle.php',
             flash         : false,
             afterToggle   : {},
         }, options);
@@ -24,13 +25,13 @@
         var AmsifyToggle = function() {
             this.toggleClass = {
                 bootstrap   : ['btn-success', 'btn-danger'],
-                materialize : ['btn-success', 'btn-danger'],
-                amsify      : ['btn-success', 'btn-danger'],
+                materialize : ['btn green', 'btn red'],
+                amsify      : ['btn-green', 'btn-red'],
             };
             this.toggleHTML = {
                 bootstrap   : ['<span class="fa fa-check"></span>', '<span class="fa fa-times"></span>'],
-                materialize : ['<span class="fa fa-check"></span>', '<span class="fa fa-times"></span>'],
-                amsify      : ['<span class="fa fa-check"></span>', '<span class="fa fa-times"></span>'],
+                materialize : ['<i class="material-icons">check</i>', '<i class="material-icons">close</i>'],
+                amsify      : ['&#10004;', '&#10006;'],
             };
             this.callback   = {
                 name : 'afterToggle',
@@ -44,7 +45,20 @@
              * @param  {selector} selector
              */
             _init : function(selector) {
+                this.setDefault(selector);
                 this.setToggleEvent(selector);
+            },
+
+            setDefault : function(selector) {
+              var _self         = this;
+              var toggleValue   = $(selector).attr('data-val');
+              var toggleClass   = _self.getToggleClass(selector);
+              var toggleHTML    = _self.getToggleHTML(selector);
+              if(toggleValue == 0) {
+                $(selector).removeClass(toggleClass[0]).addClass(toggleClass[1]).empty().html(toggleHTML[1]);
+              } else {
+                $(selector).removeClass(toggleClass[1]).addClass(toggleClass[0]).empty().html(toggleHTML[0]);
+              }
             },
 
             setToggleEvent : function(selector) {
@@ -53,7 +67,7 @@
                   var $this             = $(this);
                   var ID                = $(this).data('id');
                   var toggleValue       = $(this).attr('data-val');
-                  var targetMethod      = $(this).data('method');
+                  var targetURL         = ($(this).data('ajax'))? $(this).data('ajax'): settings.action;
                   var toggleClass       = _self.getToggleClass(this);
                   var toggleHTML        = _self.getToggleHTML(this);
 
@@ -70,7 +84,7 @@
                   ajaxConfig['complete']  = function() {
                       AmsifyHelper.callback(settings, _self.callback.name, $this, _self.callback.attr);
                   };
-                  AmsifyHelper.callAjax(targetMethod, params, ajaxConfig, 'POST', settings.flash);
+                  AmsifyHelper.callAjax(targetURL, params, ajaxConfig, 'POST', settings.flash);
                 };
                 $(selector).click(callbackFunction);
             },
