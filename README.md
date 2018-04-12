@@ -7,6 +7,10 @@ This folder having three different plugin files
 2. [OnChange](#onchange)
 3. [List Items](#list-items)
 
+## Requires
+1. [AmsifyHelper](https://github.com/amsify42/jquery.amsify.helper)
+2. Jquery-ui(If draggable sort option is being used)
+
 ## Toggle
 This is for toggling content and class of elements along with calling ajax.
 <br/>
