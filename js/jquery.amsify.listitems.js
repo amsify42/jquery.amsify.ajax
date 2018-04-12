@@ -5,8 +5,10 @@
 (function($) {
 
     $.fn.amsifyListItems = function(options) {
-
-        // merging default settings with custom
+        /**
+         * Merging default settings with custom
+         * @type {object}
+         */
         var settings = $.extend({
             type        : 'bootstrap',
             action      : {
@@ -35,9 +37,8 @@
             /**
              * Executing all the required settings
              * @param  {selector} list
-             * @param  {object} settings
              */
-            _init : function(list, settings) {
+            _init : function(list) {
               this.list       = list;
               this.formInputs = $(list).children().last().find(':input');
               AmsifyHelper.fixedCloneMethod();
@@ -174,7 +175,7 @@
          * @return {object}
          */
         return this.each(function() {
-            (new AmsifyListItems)._init(this, settings);
+            (new AmsifyListItems)._init(this);
         });
 
     };
