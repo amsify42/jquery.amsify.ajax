@@ -26,7 +26,7 @@ Since the default value of **data-val** is **1**, it will convert this anchor ta
 ```html
 	<a href="#" class="active btn-success" data-id="1" data-val="1">Active</a>
 ```
-On click this anchor tag, it will be toggled to this
+On click, this anchor tag will be toggled to this
 ```html
 	<a href="#" class="active btn-red" data-id="1" data-val="0">Inactive</a>
 ```
