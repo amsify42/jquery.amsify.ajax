@@ -5,8 +5,10 @@
 (function($) {
 
     $.fn.amsifyToggle = function(options) {
-
-        // merging default settings with custom
+        /**
+         * Merging default settings with custom
+         * @type {object}
+         */
         var settings = $.extend({
             type          : 'bootstrap',
             toggleClass   : [],
@@ -36,18 +38,16 @@
             };
         };
 
-
         AmsifyToggle.prototype = {
             /**
              * Executing all the required settings
-             * @param  {selector} form
-             * @param  {object} settings
+             * @param  {selector} selector
              */
-            _init               : function(selector, settings) {
+            _init : function(selector) {
                 this.setToggleEvent(selector);
             },
 
-            setToggleEvent      : function(selector) {
+            setToggleEvent : function(selector) {
                 var _self               = this;
                 var callbackFunction    = function(){
                   var $this             = $(this);
@@ -75,7 +75,7 @@
                 $(selector).click(callbackFunction);
             },
 
-            getToggleClass      : function(selector) {
+            getToggleClass : function(selector) {
                 if(settings.toggleClass.length > 1) {
                     return settings.toggleClass;
                 } else if($(selector).data('class') !== undefined) {
@@ -85,7 +85,7 @@
                 }
             },
 
-            getToggleHTML       : function(selector) {
+            getToggleHTML : function(selector) {
                 if(settings.toggleHTML.length > 1) {
                     return settings.toggleHTML;
                 } else if($(selector).data('html') !== undefined) {
@@ -94,7 +94,7 @@
                     return this.toggleHTML[settings.type];
                 }
             },
-           
+            
         };
         
         /**
@@ -102,7 +102,7 @@
          * @return {object}
          */
         return this.each(function() {
-            (new AmsifyToggle)._init(this, settings);
+            (new AmsifyToggle)._init(this);
         });
 
     };

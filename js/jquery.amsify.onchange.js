@@ -5,8 +5,10 @@
 (function($) {
 
     $.fn.amsifyOnChange = function(options) {
-
-        // merging default settings with custom
+        /**
+         * Merging default settings with custom
+         * @type {object}
+         */
         var settings = $.extend({
             targetField   : '',
             extraParams   : {},
@@ -33,14 +35,12 @@
             };
         };
 
-
         AmsifyOnChange.prototype = {
             /**
              * Executing all the required settings
-             * @param  {selector} form
-             * @param  {object} settings
+             * @param  {selector} input
              */
-            _init               : function(selector, settings) {
+            _init : function(selector) {
                 this.setOnChange(selector);
             },
 
@@ -91,7 +91,7 @@
          * @return {object}
          */
         return this.each(function() {
-            (new AmsifyOnChange)._init(this, settings);
+            (new AmsifyOnChange)._init(this);
         });
 
     };
