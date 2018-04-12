@@ -9,11 +9,12 @@ This folder having three different plugin files
 
 ## Toggle
 This is for toggling content and class of elements along with calling ajax.
-Lets say you have element to toggle its classes [btn-success, btn-danger] and content [Active, Inactive]
+<br/>
+Let's say you have element to toggle its classes **btn-success, btn-danger** and content **Active, Inactive**
 ```html
 	<a href="#" class="active" data-id="1" data-val="1"></a>
 ```
-This will make all the elements with class .active onclick toggle class [btn-success, btn-danger], content [Active, Inactive] along with calling ajax to the action with data set in data-id and data-val
+This will make all the elements with class **.active** onclick toggle class **btn-success, btn-danger**, content **Active, Inactive** along with calling ajax to the action with data set in data-id and data-val
 ```js
 	$('.active').amsifyToggle({
 		toggleClass: ['btn-success', 'btn-danger'],
@@ -21,7 +22,7 @@ This will make all the elements with class .active onclick toggle class [btn-suc
 		action: 'http://site.com/toggle'
 	});
 ```
-Since the default value of *data-val* is *1*, it will convert this anchor tag to this
+Since the default value of **data-val** is **1**, it will convert this anchor tag to this
 ```html
 	<a href="#" class="active btn-success" data-id="1" data-val="1">Active</a>
 ```
@@ -40,7 +41,7 @@ You can also set toggle class, html and ajax action in attributes like this
 		data-ajax="http://site.com/toggle">
 	</a>
 ```
-**Note:** data-class and data-html is separated by colon **:**
+**Note:** Attributes **data-class** and **data-html** are separated by colon **:**
 
 ## OnChange
 This is for simply loading html into element on change of selection input
@@ -65,7 +66,7 @@ $('#country').amsifyOnChange({
 ```
 
 ## List Items
-This is for cloning and prepending the form into the list. Lets say we have one section with form like this
+This is for cloning and prepending the form into the list. Let's say we have one section with form like this
 ```html
 	<div id="list">
 		<div class="item">
@@ -84,8 +85,8 @@ This is for cloning and prepending the form into the list. Lets say we have one 
 		delete: 'http://site.com/delete.php',
 	});
 ```
-Initializing list items will prepend the copy of item on click *.add-item* along with calling ajax to the add action with input data.
-*.remove-item* will remove the item by passing item-id to delete action.
+Initializing list items will prepend the copy of item on click **.add-item** along with calling ajax to the add action with input data.
+**.remove-item** will remove the item by passing item-id to delete action.
 
 **Note:** Make sure to send item id back in ajax response something like this
 ```js
@@ -95,7 +96,7 @@ Initializing list items will prepend the copy of item on click *.add-item* along
 		id: 23
 	}
 ```
- and it will set to *item-id* attribute of each item.
+ and it will set to **item-id** attribute of each item.
  ```html
 	<div id="list">
 		<!-- New item added here -->
