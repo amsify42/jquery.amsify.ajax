@@ -117,3 +117,10 @@ Initializing list items will prepend the copy of item on click **.add-item** alo
 		</div>
 	</div>
 ```
+
+You can also set sort action if you want elements ids to be passed after draggable sort.
+```js
+	$('#list').amsifyListItems({
+		sort: 'http://site.com/sort.php',
+	});
+```
