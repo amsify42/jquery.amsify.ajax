@@ -17,6 +17,14 @@
               delete    : '',
               sort      : '',
             },
+            callbacks   : {
+              beforeAdd     : {},
+              afterAdd      : {},
+              beforeEdit    : {},
+              afterEdit     : {},
+              beforeDelete  : {},
+              afterDelete   : {},
+            },
             itemAttr    : 'item-id',
             flash       : true,
         }, options);
@@ -31,6 +39,8 @@
             this.bodyLoader       = null;
             this.addItemClass     = '.add-item';
             this.removeItemClass  = '.remove-item';
+            this.hideAfter        = '.amsify-listitem-hide-after';
+            this.removeAfter      = '.amsify-listitem-remove-after';
         };
 
         AmsifyListItems.prototype = {
@@ -75,9 +85,14 @@
               $newItem.hide();
               $newItem.find(this.removeItemClass).show();
               $newItem.find(this.addItemClass).hide();
+              $newItem.find(this.hideAfter).hide();
+              $newItem.find(this.removeAfter).remove();
               var params      = this.getInputs();
               var ajaxConfig  = {
                 beforeSend : function() {
+                  if(settings.callbacks.beforeAdd !== undefined && typeof settings.callbacks.beforeAdd == "function") {
+                      settings.callbacks.beforeAdd($newItem);
+                  }
                   $(_self.bodyLoader).show();
                 },
                 afterSuccess : function(data) {
@@ -93,6 +108,9 @@
                 complete : function() {
                   $(_self.bodyLoader).hide();
                   $newItem.slideDown();
+                  if(settings.callbacks.afterAdd !== undefined && typeof settings.callbacks.afterAdd == "function") {
+                    settings.callbacks.afterAdd($newItem);
+                  }
                 }
               };
               AmsifyHelper.callAjax(settings.action.add, params, ajaxConfig, 'POST', settings.flash);
@@ -107,10 +125,16 @@
                   params.id       = $listItem.attr(settings.itemAttr);
                   var ajaxConfig  = {
                     beforeSend : function() {
+                      if(settings.callbacks.beforeEdit !== undefined && typeof settings.callbacks.beforeEdit == "function") {
+                          settings.callbacks.beforeEdit($listItem);
+                      }
                       $(_self.bodyLoader).show();
                     },
                     complete : function() {
                       $(_self.bodyLoader).hide();
+                      if(settings.callbacks.afterEdit !== undefined && typeof settings.callbacks.afterEdit == "function") {
+                        settings.callbacks.afterEdit($listItem);
+                      }
                     }
                   };
                   AmsifyHelper.callAjax(settings.action.edit, params, ajaxConfig, 'POST', settings.flash);
@@ -127,6 +151,9 @@
                     var params      = { id: $(this).closest('['+settings.itemAttr+']').attr(settings.itemAttr) };
                     var ajaxConfig  = {
                       beforeSend : function() {
+                        if(settings.callbacks.beforeDelete !== undefined && typeof settings.callbacks.beforeDelete == "function") {
+                            settings.callbacks.beforeDelete($listItem);
+                        }
                         $(_self.bodyLoader).show();
                       },
                       afterSuccess : function(data) {
@@ -134,6 +161,9 @@
                       },
                       complete : function() {
                         $(_self.bodyLoader).hide();
+                        if(settings.callbacks.afterDelete !== undefined && typeof settings.callbacks.afterDelete == "function") {
+                          settings.callbacks.afterDelete();
+                        }
                       }
                     };
                     AmsifyHelper.callAjax(settings.action.delete, params, ajaxConfig, 'POST', settings.flash);
